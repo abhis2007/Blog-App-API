@@ -2,8 +2,10 @@ package com.example.BlogApp.API.DTOs.ArticlesDTO;
 
 import java.util.List;
 
-public class ArticleRequest {
-    public ArticleRequest() {}
+public class ArticleResponse_Comment {
+
+    // Note response for the article when returning to the comment will not be containing the comment details as already this article is returning the response from the comments.
+    public ArticleResponse_Comment() {}
     private String id ;
     private String title ;
     private String subtitle ;
@@ -47,6 +49,14 @@ public class ArticleRequest {
         this.content = content;
     }
 
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
     public List<String> getTagIds() {
         return tagIds;
     }
@@ -85,12 +95,5 @@ public class ArticleRequest {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
     }
 }

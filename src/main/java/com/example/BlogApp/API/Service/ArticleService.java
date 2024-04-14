@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -20,43 +21,55 @@ public class ArticleService {
     private ArticleRepo articleRepo ;
     @Autowired
     private ModelMapper modelMapper ;
+    @Autowired
+    UserService userService ;
 
     public ResponseEntity<List<ArticleResponse>> getAllArticles() {
-
         List<ArticlesEntity> articles = new ArrayList<>() ;
         articleRepo.findAll().forEach(articles::add);
 
         //Map it to the article response DTO
         List<ArticleResponse> responseDTO = ArticleEntityToResponseDTOMapper(articles) ;
-
         return ResponseEntity.ok(responseDTO) ;
     }
-    public ResponseEntity<ArticlesEntity> addNewArticle(ArticlesEntity newArticle) {
-        System.out.println("adding");
+    public ResponseEntity<ArticleResponse> addNewArticle(ArticlesEntity newArticle) {
         ArticlesEntity savedArticle = articleRepo.save(newArticle) ;
-        System.out.println("added");
-        return ResponseEntity.ok(savedArticle) ;
+
+        // map the response into the Article Response DTO
+        ArticleResponse responseDTO = modelMapper.map(savedArticle, ArticleResponse.class);
+        return ResponseEntity.ok(responseDTO) ;
     }
     public ResponseEntity<ArticleResponse> getArticleById(String articleId) {
-
         ArticlesEntity savedArticle = articleRepo.findById(articleId).get() ;
 
         // map it to the Article Response DTO
         ArticleResponse articleResponse = modelMapper.map(savedArticle, ArticleResponse.class);
+        articleResponse.setAuthor(modelMapper.map(savedArticle.getUser(), UserResponse.class));
         return ResponseEntity.ok(articleResponse) ;
     }
 
-//    public ResponseEntity<ArticlesEntity> addNewArticle(ArticleRequest newArticle) {
-//
-//        ArticlesEntity savedArticle = articleRepo.save(newArticle) ;
-//
-//        return ResponseEntity.ok(savedArticle) ;
-//    }
+    public ResponseEntity<ArticleResponse> updateArticleById(ArticleRequest newArticle) {
+        ArticlesEntity existingArticle = articleRepo.findById(newArticle.getId()).get();
+
+        ArticlesEntity articleUpdated = modelMapper.map(newArticle, ArticlesEntity.class) ;
+        UserResponse author = userService.getUserById(newArticle.getAuthorId()).getBody();
+        articleUpdated.setUser(modelMapper.map(author, UsersEntity.class));
+
+        //Save the changes
+        ArticlesEntity savedArticle = articleRepo.save(articleUpdated) ;
+        ArticleResponse responseDTO = modelMapper.map(savedArticle, ArticleResponse.class) ;
+
+        // set the author in response
+        responseDTO.setAuthor(modelMapper.map(savedArticle.getUser(), UserResponse.class));
+        return ResponseEntity.ok(responseDTO) ;
+    }
 
     public List<ArticleResponse> ArticleEntityToResponseDTOMapper(List<ArticlesEntity> articles){
         List<ArticleResponse> responseDTO = new ArrayList<>() ;
-        for(ArticlesEntity articleEntity : articles ){
-            responseDTO.add(modelMapper.map(articleEntity, ArticleResponse.class)) ;
+        for(ArticlesEntity article : articles ){
+            ArticleResponse currArticle = modelMapper.map(article, ArticleResponse.class) ;
+            currArticle.setAuthor(modelMapper.map(article.getUser(), UserResponse.class));
+            responseDTO.add(currArticle) ;
         }
         return responseDTO ;
     }

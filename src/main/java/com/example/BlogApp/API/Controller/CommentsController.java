@@ -35,6 +35,11 @@ public class CommentsController {
         return commentService.getAllComments();
     }
 
+    @GetMapping("/{commentId}")
+    public ResponseEntity<List<CommentResponse>> getCommentById(@PathVariable String commentId) {
+        return commentService.getAllComments();
+    }
+
     @PostMapping("/")
     public ResponseEntity<CommentResponse> addNewComment(@RequestBody CommentRequest comment) {
 
@@ -54,11 +59,9 @@ public class CommentsController {
         return commentService.addNewComment(commentsEntity);
     }
 
-    @GetMapping("/{commentId}")
-    public ResponseEntity<CommentResponse> getCommentById(@PathVariable String commentId) {
-        // Map it to the comment request DTO
-        CommentResponse responseDTO = commentService.getCommentById(commentId).getBody();
+    @PatchMapping("/")
+    public ResponseEntity<CommentResponse> getCommentById(@RequestBody CommentRequest commentToUpdate) {
 
-        return commentService.getCommentById(responseDTO.getId());
+        return commentService.updateCommentById(commentToUpdate);
     }
 }

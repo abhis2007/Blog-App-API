@@ -1,6 +1,7 @@
 package com.example.BlogApp.API.DTOs.CommentDTO;
 
 import com.example.BlogApp.API.DTOs.ArticlesDTO.ArticleResponse;
+import com.example.BlogApp.API.DTOs.ArticlesDTO.ArticleResponse_Comment;
 import com.example.BlogApp.API.DTOs.UserDTO.UserResponse;
 
 public class CommentResponse {
@@ -8,16 +9,7 @@ public class CommentResponse {
     String id ;
     String content ;
     UserResponse author ;
-
-    public ArticleResponse getArticle() {
-        return article;
-    }
-
-    public void setArticle(ArticleResponse article) {
-        this.article = article;
-    }
-
-    ArticleResponse article ;
+    ArticleResponse_Comment article ;
     long likes;
     long dislikes ;
     String createdAt ;
@@ -37,7 +29,13 @@ public class CommentResponse {
     public void setContent(String content) {
         this.content = content;
     }
+    public ArticleResponse_Comment getArticle() {
+        return article;
+    }
 
+    public void setArticle(ArticleResponse_Comment article) {
+        this.article = article;
+    }
     public UserResponse getAuthor() {
         return author;
     }

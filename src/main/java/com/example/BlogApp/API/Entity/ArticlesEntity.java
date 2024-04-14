@@ -124,7 +124,4 @@ public class ArticlesEntity {
     @JoinColumn(name = "author", nullable = false)
     // It says to JPA that we have a column(need to create by JPA) called user_id in Articles Entity which will keep id(pk) of the Users entity.
     UsersEntity user;
-
-
-
 }

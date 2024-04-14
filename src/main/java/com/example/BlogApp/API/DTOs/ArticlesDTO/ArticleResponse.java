@@ -1,14 +1,17 @@
 package com.example.BlogApp.API.DTOs.ArticlesDTO;
 
+import com.example.BlogApp.API.DTOs.UserDTO.UserResponse;
+
 import java.util.List;
 
 public class ArticleResponse {
     public ArticleResponse() {}
-    private String id ; private String title ;
+    private String id ;
+    private String title ;
     private String subtitle ;
     private String content ;
-    private String authorId ;
-    private List<String> commentId ;
+    private UserResponse author ;
+//    private List<String> commentId ;
     private List<String> tagIds ;
     private List<String> imageIds;
     private long likes ;
@@ -47,21 +50,21 @@ public class ArticleResponse {
         this.content = content;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public UserResponse getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setAuthor(UserResponse author) {
+        this.author = author;
     }
 
-    public List<String> getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(List<String> commentId) {
-        this.commentId = commentId;
-    }
+//    public List<String> getCommentId() {
+//        return commentId;
+//    }
+//
+//    public void setCommentId(List<String> commentId) {
+//        this.commentId = commentId;
+//    }
 
     public List<String> getTagIds() {
         return tagIds;
