@@ -4,18 +4,19 @@ import java.util.List;
 
 public class ArticleResponse_Comment {
 
-    // Note response for the article when returning to the comment will not be containing the comment details as already this article is returning the response from the comments.
-    public ArticleResponse_Comment() {}
-    private String id ;
-    private String title ;
-    private String subtitle ;
-    private String content ;
-    private String authorId ;
-    private List<String> tagIds ;
+    private String id;
+    private String title;
+    private String subtitle;
+    private String content;
+    private String authorId;
+    private List<String> tagIds;
     private List<String> imageIds;
-    private long likes ;
-    private long dislikes ;
-    private String createdAt ;
+    private long likes;
+    private long dislikes;
+    private String createdAt;
+    // Note response for the article when returning to the comment will not be containing the comment details as already this article is returning the response from the comments.
+    public ArticleResponse_Comment() {
+    }
 
     public String getId() {
         return id;

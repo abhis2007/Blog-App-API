@@ -1,13 +1,14 @@
 package com.example.BlogApp.API.DTOs.UserDTO;
 
 public class UserRequest {
-    public UserRequest(){}
-    private String id ;
-    private String name ;
-    private String password ;
-    private String biography ;
-    private String email ;
-    private String qualification ;
+    private String id;
+    private String name;
+    private String password;
+    private String biography;
+    private String email;
+    private String qualification;
+    public UserRequest() {
+    }
 
     public String getId() {
         return id;
@@ -24,11 +25,13 @@ public class UserRequest {
     public void setName(String name) {
         this.name = name;
     }
-    public void setPassword(String password) {
-        this.password = password ;
-    }
+
     public String getPassword() {
-        return password ;
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getBiography() {

@@ -9,56 +9,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
-    private UserRepo userRepo ;
+    private UserRepo userRepo;
     @Autowired
-    private ModelMapper modelMapper ;
+    private ModelMapper modelMapper;
     @Autowired
-    private PasswordEncoder passwordEncoder ;
+    private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<List<UserResponse>> getAllUser(){
-        List<UsersEntity> users = new ArrayList<>() ;
+    public ResponseEntity<List<UserResponse>> getAllUser() {
+        List<UsersEntity> users = new ArrayList<>();
         userRepo.findAll().forEach(users::add);
         List<UserResponse> responseDTO = UserEntityToResponseDTOMapper(users);
-        return ResponseEntity.ok(responseDTO) ;
+        return ResponseEntity.ok(responseDTO);
     }
 
     public ResponseEntity<UserResponse> addNewUser(UsersEntity user) {
-        UsersEntity savedUser = userRepo.save(user) ;
+        UsersEntity savedUser = userRepo.save(user);
 
         //Convert the response into the UserResponse DTO
         UserResponse responseDTO = modelMapper.map(savedUser, UserResponse.class);
-        return ResponseEntity.ok(responseDTO) ;
+        return ResponseEntity.ok(responseDTO);
     }
 
     public ResponseEntity<UserResponse> getUserById(String id) {
-        UsersEntity response = userRepo.findById(id).get() ;
+        UsersEntity response = userRepo.findById(id).get();
 
         //Convert it into the UserResponse DTO
-        UserResponse responseDTO = modelMapper.map(response, UserResponse.class) ;
-        return ResponseEntity.ok(responseDTO) ;
+        UserResponse responseDTO = modelMapper.map(response, UserResponse.class);
+        return ResponseEntity.ok(responseDTO);
     }
 
-    public ResponseEntity<UserResponse> updateUser(UserRequest user){
+    public ResponseEntity<UserResponse> updateUser(UserRequest user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UsersEntity userToUpdate = modelMapper.map(user, UsersEntity.class);
-        UsersEntity savedUser = userRepo.save(userToUpdate) ;
+        UsersEntity savedUser = userRepo.save(userToUpdate);
 
         // map it to the userResponse DTO
         UserResponse responseDTO = modelMapper.map(savedUser, UserResponse.class);
-        return ResponseEntity.ok(responseDTO) ;
+        return ResponseEntity.ok(responseDTO);
     }
 
-    public List<UserResponse> UserEntityToResponseDTOMapper(List<UsersEntity> user){
-        List<UserResponse> responseDTO = new ArrayList<>() ;
-        for(UsersEntity userReq : user ){
-            responseDTO.add(modelMapper.map(userReq, UserResponse.class)) ;
+    public List<UserResponse> UserEntityToResponseDTOMapper(List<UsersEntity> user) {
+        List<UserResponse> responseDTO = new ArrayList<>();
+        for (UsersEntity userReq : user) {
+            responseDTO.add(modelMapper.map(userReq, UserResponse.class));
         }
-        return responseDTO ;
+        return responseDTO;
     }
 
 }

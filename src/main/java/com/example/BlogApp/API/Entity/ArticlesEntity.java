@@ -2,13 +2,10 @@ package com.example.BlogApp.API.Entity;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
 import java.util.List;
 
 @Entity(name = "Articles")
 public class ArticlesEntity {
-    public ArticlesEntity() {
-    }
     @Id
     String id;
     String title;
@@ -17,6 +14,24 @@ public class ArticlesEntity {
     long likes;
     long dislikes;
     String createdAt;
+    // An article can have the multiple comments - 1:N with Articles -> Comments
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
+    List<CommentsEntity> commentsList;
+    //Building FK relationship with Users entity.
+    //An article can contains multiple images
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
+    List<ImagesEntity> images;
+    //An article can have the multiple tag and tag can have the multiple articles.
+    @ManyToMany(mappedBy = "articlesList", cascade = CascadeType.ALL)
+    List<TagsEntity> tags;
+    // user will be referred in the Users Entity to create the FK
+    @ManyToOne
+    @JoinColumn(name = "author", nullable = false)
+    // It says to JPA that we have a column(need to create by JPA) called user_id in Articles Entity which will keep id(pk) of the Users entity.
+            UsersEntity user;
+
+    public ArticlesEntity() {
+    }
 
     public String getId() {
         return id;
@@ -105,23 +120,4 @@ public class ArticlesEntity {
     public void setTags(List<TagsEntity> tags) {
         this.tags = tags;
     }
-
-    // An article can have the multiple comments - 1:N with Articles -> Comments
-    @OneToMany(mappedBy = "articles", cascade=CascadeType.ALL)
-    List<CommentsEntity> commentsList;
-
-    //Building FK relationship with Users entity.
-    //An article can contains multiple images
-    @OneToMany(mappedBy = "articles", cascade=CascadeType.ALL)
-    List<ImagesEntity> images;
-
-    //An article can have the multiple tag and tag can have the multiple articles.
-    @ManyToMany(mappedBy = "articlesList", cascade=CascadeType.ALL)
-    List<TagsEntity> tags;
-
-    // user will be referred in the Users Entity to create the FK
-    @ManyToOne
-    @JoinColumn(name = "author", nullable = false)
-    // It says to JPA that we have a column(need to create by JPA) called user_id in Articles Entity which will keep id(pk) of the Users entity.
-    UsersEntity user;
 }

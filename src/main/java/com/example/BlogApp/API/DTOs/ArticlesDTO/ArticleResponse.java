@@ -5,18 +5,19 @@ import com.example.BlogApp.API.DTOs.UserDTO.UserResponse;
 import java.util.List;
 
 public class ArticleResponse {
-    public ArticleResponse() {}
-    private String id ;
-    private String title ;
-    private String subtitle ;
-    private String content ;
-    private UserResponse author ;
-//    private List<String> commentId ;
-    private List<String> tagIds ;
+    private String id;
+    private String title;
+    private String subtitle;
+    private String content;
+    private UserResponse author;
+    //    private List<String> commentId ;
+    private List<String> tagIds;
     private List<String> imageIds;
-    private long likes ;
-    private long dislikes ;
-    private String createdAt ;
+    private long likes;
+    private long dislikes;
+    private String createdAt;
+    public ArticleResponse() {
+    }
 
     public String getId() {
         return id;

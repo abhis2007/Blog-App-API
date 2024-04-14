@@ -12,8 +12,8 @@ public class TagsEntity {
     * */
 
     @Id
-    String id ;
-    String name ;
+    String id;
+    String name;
 
     // a tag can have multiple articles, and articles can have the multiple tags
     // Hence have the Many to Many relationship.
@@ -24,5 +24,5 @@ public class TagsEntity {
             joinColumns = @JoinColumn(name = "tag_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "article_id", nullable = false) //Inverse refer the PK of the right side table(tag->article)
     )
-    private List<ArticlesEntity> articlesList ;
+    private List<ArticlesEntity> articlesList;
 }

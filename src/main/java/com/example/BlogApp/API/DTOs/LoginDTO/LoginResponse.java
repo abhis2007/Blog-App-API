@@ -1,7 +1,13 @@
 package com.example.BlogApp.API.DTOs.LoginDTO;
 
 public class LoginResponse {
-    public LoginResponse(){}
+    private String id;
+    private String name;
+    private String biography;
+    private String qualification;
+
+    public LoginResponse() {
+    }
 
     public String getId() {
         return id;
@@ -27,10 +33,6 @@ public class LoginResponse {
         this.biography = biography;
     }
 
-    private String id ;
-    private String name ;
-    private String biography ;
-
     public String getQualification() {
         return qualification;
     }
@@ -38,7 +40,5 @@ public class LoginResponse {
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
-
-    private String qualification ;
 }
 

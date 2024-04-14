@@ -2,17 +2,21 @@ package com.example.BlogApp.API.Entity;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
-
 @Entity(name = "comments")
 public class CommentsEntity {
     @Id
-    String id ;
+    String id;
     @Column(nullable = false)
-    String content ;
+    String content;
     long likes;
     long dislikes;
-    String createdAt ;
+    String createdAt;
+    @ManyToOne
+    @JoinColumn(name = "author", nullable = false)
+    UsersEntity user;
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    ArticlesEntity articles;
 
     public String getId() {
         return id;
@@ -69,12 +73,4 @@ public class CommentsEntity {
     public void setArticles(ArticlesEntity articles) {
         this.articles = articles;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "author", nullable = false)
-    UsersEntity user ;
-
-    @ManyToOne
-    @JoinColumn(name = "article_id")
-    ArticlesEntity articles ;
 }

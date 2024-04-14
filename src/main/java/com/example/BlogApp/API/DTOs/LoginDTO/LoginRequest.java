@@ -2,13 +2,14 @@ package com.example.BlogApp.API.DTOs.LoginDTO;
 
 public class LoginRequest {
 
-    public LoginRequest(){}
-    private String id ;
-    private String name ;
-    private String biography ;
-    private String email ;
-    private String password ;
-    private String qualification ;
+    private String id;
+    private String name;
+    private String biography;
+    private String email;
+    private String password;
+    private String qualification;
+    public LoginRequest() {
+    }
 
     public String getId() {
         return id;

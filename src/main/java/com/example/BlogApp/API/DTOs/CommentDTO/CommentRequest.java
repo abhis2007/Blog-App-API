@@ -1,12 +1,12 @@
 package com.example.BlogApp.API.DTOs.CommentDTO;
 
 public class CommentRequest {
-    String id ;
-    String content ;
+    String id;
+    String content;
     long likes;
-    long dislikes ;
+    long dislikes;
     String authorId;
-    String articleId ;
+    String articleId;
 
     public String getId() {
         return id;

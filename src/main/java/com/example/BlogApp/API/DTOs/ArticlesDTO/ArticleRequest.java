@@ -3,17 +3,18 @@ package com.example.BlogApp.API.DTOs.ArticlesDTO;
 import java.util.List;
 
 public class ArticleRequest {
-    public ArticleRequest() {}
-    private String id ;
-    private String title ;
-    private String subtitle ;
-    private String content ;
-    private String authorId ;
-    private List<String> tagIds ;
+    private String id;
+    private String title;
+    private String subtitle;
+    private String content;
+    private String authorId;
+    private List<String> tagIds;
     private List<String> imageIds;
-    private long likes ;
-    private long dislikes ;
-    private String createdAt ;
+    private long likes;
+    private long dislikes;
+    private String createdAt;
+    public ArticleRequest() {
+    }
 
     public String getId() {
         return id;
@@ -86,6 +87,7 @@ public class ArticleRequest {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+
     public String getAuthorId() {
         return authorId;
     }

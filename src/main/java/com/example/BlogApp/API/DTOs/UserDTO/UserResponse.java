@@ -47,6 +47,7 @@ public class UserResponse {
     public String getQualification() {
         return qualification;
     }
+
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
