@@ -6,7 +6,6 @@ import com.example.BlogApp.API.DTOs.UserDTO.UserResponse;
 import com.example.BlogApp.API.Entity.ArticlesEntity;
 import com.example.BlogApp.API.Entity.UsersEntity;
 import com.example.BlogApp.API.Service.ArticleService;
-import com.example.BlogApp.API.Service.CommentService;
 import com.example.BlogApp.API.Service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +20,8 @@ public class ArticlesController {
 
     @Autowired
     ArticleService articleService;
-
-    @Autowired
-    CommentService commentService;
-
     @Autowired
     UserService userService;
-
     @Autowired
     ModelMapper modelMapper;
 
@@ -60,5 +54,10 @@ public class ArticlesController {
     @PatchMapping("/")
     public ResponseEntity<ArticleResponse> updateAnArticle(@RequestBody ArticleRequest articleToUpdate) {
         return articleService.updateArticleById(articleToUpdate);
+    }
+
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<ArticleResponse> deleteArticleById(@PathVariable String articleId){
+        return articleService.deleteArticleById(articleId) ;
     }
 }

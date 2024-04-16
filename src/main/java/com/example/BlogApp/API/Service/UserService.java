@@ -55,6 +55,16 @@ public class UserService {
         return ResponseEntity.ok(responseDTO);
     }
 
+    public ResponseEntity<UserResponse> deleteUserById(String userId) {
+        // get user
+        UsersEntity userToDelete = userRepo.findById(userId).get() ;
+        userRepo.delete(userToDelete);
+
+        // map it to response
+        UserResponse responseDTO = modelMapper.map(userToDelete, UserResponse.class) ;
+        return ResponseEntity.ok(responseDTO) ;
+    }
+
     public List<UserResponse> UserEntityToResponseDTOMapper(List<UsersEntity> user) {
         List<UserResponse> responseDTO = new ArrayList<>();
         for (UsersEntity userReq : user) {

@@ -10,7 +10,6 @@ public class ArticleResponse {
     private String subtitle;
     private String content;
     private UserResponse author;
-    //    private List<String> commentId ;
     private List<String> tagIds;
     private List<String> imageIds;
     private long likes;

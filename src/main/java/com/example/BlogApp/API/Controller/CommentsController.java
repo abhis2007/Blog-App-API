@@ -61,7 +61,10 @@ public class CommentsController {
 
     @PatchMapping("/")
     public ResponseEntity<CommentResponse> getCommentById(@RequestBody CommentRequest commentToUpdate) {
-
         return commentService.updateCommentById(commentToUpdate);
+    }
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<CommentResponse> deleteCommentById(@PathVariable String commentId) {
+        return commentService.deleteCommentById(commentId);
     }
 }

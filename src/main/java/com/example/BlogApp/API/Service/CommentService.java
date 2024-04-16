@@ -9,6 +9,7 @@ import com.example.BlogApp.API.Entity.ArticlesEntity;
 import com.example.BlogApp.API.Entity.CommentsEntity;
 import com.example.BlogApp.API.Entity.UsersEntity;
 import com.example.BlogApp.API.Repository.CommentRepo;
+import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -127,6 +128,21 @@ public class CommentService {
         return ResponseEntity.ok(responseDTO);
     }
 
+    public ResponseEntity<CommentResponse> deleteCommentById(String commentId) {
+        // get the comment to deleted
+        CommentsEntity commentsToDelete = commentRepo.findById(commentId).get() ;
+        commentRepo.delete(commentsToDelete);
+
+        //return the response
+        CommentResponse responseDTO = modelMapper.map(commentsToDelete, CommentResponse.class) ;
+
+        //set the article
+        responseDTO.setArticle(modelMapper.map(commentsToDelete.getArticles(), ArticleResponse_Comment.class));
+
+        // set the author
+        responseDTO.setAuthor(modelMapper.map(commentsToDelete.getUser(), UserResponse.class));
+        return ResponseEntity.ok(responseDTO) ;
+    }
     public List<CommentsEntity> CommentResponseDTOToEntityMapper(List<CommentResponse> comments) {
         List<CommentsEntity> responseDTO = new ArrayList<>();
         for (CommentResponse commentRes : comments) {

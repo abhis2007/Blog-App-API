@@ -60,9 +60,24 @@ public class ArticleService {
         ArticlesEntity savedArticle = articleRepo.save(articleUpdated);
         ArticleResponse responseDTO = modelMapper.map(savedArticle, ArticleResponse.class);
 
-        // set the author in response
+        // set the author,tag,image in response
         responseDTO.setAuthor(modelMapper.map(savedArticle.getUser(), UserResponse.class));
         return ResponseEntity.ok(responseDTO);
+    }
+
+    public ResponseEntity<ArticleResponse> deleteArticleById(String articleId){
+        //Get the article
+        ArticlesEntity articleToDelete = articleRepo.findById(articleId).get() ;// could have used getArticleById but here as response id going to be returned to user hence, we can directly call to repo.
+        articleRepo.delete(articleToDelete);
+
+        // return the deleted article in ArticleResponse
+        ArticleResponse responseDTO = modelMapper.map(articleToDelete, ArticleResponse.class) ;
+
+        //set author, tag and image
+        responseDTO.setAuthor(modelMapper.map(articleToDelete.getUser(), UserResponse.class));
+
+        return ResponseEntity.ok(responseDTO) ;
+
     }
 
     public List<ArticleResponse> ArticleEntityToResponseDTOMapper(List<ArticlesEntity> articles) {
